@@ -1,0 +1,65 @@
+# ============================
+# Python
+# ============================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ============================
+# Virtual Environment (2.3 GB!)
+# ============================
+.rag_env/
+venv/
+.venv/
+env/
+
+# ============================
+# Environment Variables & Secrets
+# ============================
+.env
+*.env
+.env.local
+.env.production
+
+# ============================
+# Qdrant Vector Database (21 MB runtime data)
+# ============================
+notebook_lm/storage/
+
+# ============================
+# PDF Data Files (28 MB — see note in README)
+# ============================
+notebook_lm/data/
+
+# ============================
+# macOS System Files
+# ============================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ============================
+# IDE & Editor
+# ============================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================
+# Jupyter Notebook Checkpoints
+# ============================
+.ipynb_checkpoints/
+
+# ============================
+# Misc
+# ============================
+*.log
+*.tmp

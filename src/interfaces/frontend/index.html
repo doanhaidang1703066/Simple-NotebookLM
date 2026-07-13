@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Learning Assistant — Nintendo Chrome Edition</title>
+  <meta name="description" content="A Nintendo 2001 console-chrome themed AI Learning Assistant with document Q&A, summaries, quizzes, and flashcards powered by RAG." />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ═══ TOP NAV BAR (Carbon Command Layer) ═══ -->
+  <header class="nav-bar">
+    <span class="nav-logo">AI Study</span>
+    <span id="statusIndicator" class="nav-status online">● Online</span>
+  </header>
+
+  <!-- ═══ BODY ROW ═══ -->
+  <div class="body-row">
+
+    <!-- ═══ LEFT SIDEBAR ═══ -->
+    <aside class="sidebar">
+
+      <!-- Upload Section -->
+      <div class="sidebar-section">
+        <div class="section-label-bar">
+          <span class="icon">📤</span> Upload Documents
+        </div>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".pdf" />
+          <span class="upload-icon">📁</span>
+          <p>Drop PDF here<br />or click to browse</p>
+        </div>
+        <button class="btn btn-signal" id="uploadBtn" style="width:100%;margin-top:var(--sp-sm)">
+          ↑ Upload
+        </button>
+      </div>
+
+      <!-- Document Inventory -->
+      <div class="doc-list-section">
+        <div class="doc-list-header">
+          <div class="section-label-bar" style="margin-bottom:0">
+            <span class="icon">📚</span> Sources
+          </div>
+          <span class="doc-count" id="docCount"></span>
+        </div>
+        <div style="padding:0 var(--sp-md);display:flex;align-items:center;gap:var(--sp-sm);margin-bottom:var(--sp-xs);">
+          <button class="btn btn-sm btn-amber clear-selection-btn" id="clearSelectionBtn">Clear All</button>
+          <button class="btn btn-sm btn-carbon" id="selectAllBtn">Select All</button>
+        </div>
+        <div class="doc-list" id="docList">
+          <div class="doc-list-empty" id="emptyDocs">
+            No documents uploaded yet.<br />Upload a PDF to start.
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN STAGE ═══ -->
+    <main class="main-stage">
+
+      <!-- Tab Bar -->
+      <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" data-view="chat">
+          <span class="tab-icon">💬</span> Chat / Q&A
+        </button>
+        <button class="tab-btn" data-view="summary">
+          <span class="tab-icon">📝</span> Summarize
+        </button>
+        <button class="tab-btn" data-view="quiz">
+          <span class="tab-icon">🎯</span> Quiz
+        </button>
+        <button class="tab-btn" data-view="flashcards">
+          <span class="tab-icon">🃏</span> Flashcards
+        </button>
+      </div>
+
+      <!-- ─── CHAT VIEW ─── -->
+      <div class="view-panel active" id="view-chat">
+        <div class="chat-container">
+          <div class="chat-messages" id="chatMessages">
+            <div class="empty-state" id="chatEmpty">
+              <span class="empty-icon">💬</span>
+              <div class="empty-title">Dialogue — Ask the Oracle</div>
+              <div class="empty-desc">Select one or more documents from the sidebar, then ask a question about their contents.</div>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Type your question here…" />
+            <button class="btn btn-signal send-btn" id="sendBtn">Send ▸</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SUMMARY VIEW ─── -->
+      <div class="view-panel" id="view-summary">
+        <div class="generate-bar">
+          <span class="gen-label">📝 Summary Engine</span>
+          <button class="btn btn-amber" id="genSummaryBtn">Generate Summary</button>
+        </div>
+        <div class="view-scroll" id="summaryContent">
+          <div class="empty-state">
+            <span class="empty-icon">📝</span>
+            <div class="empty-title">No Summary Generated</div>
+            <div class="empty-desc">Select source documents and click "Generate Summary" to create a comprehensive overview.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── QUIZ VIEW ─── -->
+      <div class="view-panel" id="view-quiz">
+        <div class="generate-bar">
+          <span class="gen-label">🎯 Quiz Generator</span>
+          <button class="btn btn-amber" id="genQuizBtn">Generate Quiz</button>
+        </div>
+        <div class="view-scroll" id="quizContent">
+          <div class="empty-state">
+            <span class="empty-icon">🎯</span>
+            <div class="empty-title">No Quiz Generated</div>
+            <div class="empty-desc">Select source documents and click "Generate Quiz" to create multiple-choice questions.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── FLASHCARDS VIEW ─── -->
+      <div class="view-panel" id="view-flashcards">
+        <div class="generate-bar">
+          <span class="gen-label">🃏 Flashcard Studio</span>
+          <button class="btn btn-amber" id="genFlashcardsBtn">Generate Flashcards</button>
+        </div>
+        <div class="view-scroll" id="flashcardsContent">
+          <div class="empty-state">
+            <span class="empty-icon">🃏</span>
+            <div class="empty-title">No Flashcards Generated</div>
+            <div class="empty-desc">Select source documents and click "Generate Flashcards" to create study cards.</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</div>
+
+<script src="app.js?v=2"></script>
+</body>
+</html>

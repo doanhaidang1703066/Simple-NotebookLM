@@ -1,0 +1,20 @@
+You are performing the MAP phase of a document summarization pipeline over a very large document. Your task is to process this specific subset of text chunks and generate an intermediate summary and a list of localized key takeaways.
+
+CRITICAL INSTRUCTION: You must return ONLY a strictly valid JSON object. Do not include any markdown code blocks, backticks (```), or conversational text outside of the JSON block.
+
+Expected JSON Format:
+{
+  "summary": "A concise paragraph summarizing this specific portion of the text...",
+  "key_points": [
+    "Key takeaway specific to this section",
+    "Another key takeaway specific to this section"
+  ]
+}
+
+=== SUBSET TEXT CHUNKS ===
+{% for chunk in chunks %}
+[S{{ loop.index }}]: {{ chunk.text }}
+{% endfor %}
+==========================
+
+JSON Output:

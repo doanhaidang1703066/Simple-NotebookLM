@@ -1,5 +1,3 @@
-# Simple-NotebookLM
-
 <![CDATA[<div align="center">
 
 # 📚 RAG-Based Intelligent Learning System
@@ -140,7 +138,7 @@ notebook_lm/
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -208,7 +206,7 @@ curl -X POST http://localhost:8000/ingest
 
 ---
 
-## Usage
+## 📖 Usage
 
 ### Web Interface
 
@@ -245,7 +243,7 @@ curl -X POST http://localhost:8000/flashcards \
 
 ---
 
-## API Reference
+## 📡 API Reference
 
 | Method | Endpoint | Description | Request Body | Response |
 |---|---|---|---|---|
@@ -262,7 +260,7 @@ curl -X POST http://localhost:8000/flashcards \
 
 ---
 
-## Evaluation
+## 📊 Evaluation
 
 ### RAGAS Benchmark Framework
 
@@ -294,11 +292,11 @@ cd notebook_lm/src
 python -m evaluation.run_chunking
 ```
 
-> Evaluation runs ~8,400 LLM inference calls (200 test cases × 7 strategies × 6 metric calls). Recommended to run on GPU-equipped machines (e.g., Google Colab / Kaggle with NVIDIA T4).
+> ⚠️ Evaluation runs ~8,400 LLM inference calls (200 test cases × 7 strategies × 6 metric calls). Recommended to run on GPU-equipped machines (e.g., Google Colab / Kaggle with NVIDIA T4).
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -316,7 +314,7 @@ python -m evaluation.run_chunking
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 All settings are managed centrally via `src/config.py` using Pydantic Settings with environment variable overrides (prefix: `RAG_`):
 
@@ -344,7 +342,7 @@ export GOOGLE_API_KEY=your_api_key_here
 
 ---
 
-## Key Design Decisions
+## 🔑 Key Design Decisions
 
 | Decision | Rationale |
 |---|---|
@@ -358,7 +356,7 @@ export GOOGLE_API_KEY=your_api_key_here
 
 ---
 
-## Known Limitations
+## 🚧 Known Limitations
 
 - **Single-Process Qdrant Lock:** In local file mode, only one process can access the database at a time. Don't run evaluation scripts while the web server is active.
 - **Small Model JSON Compliance:** Ultra-compact LLMs (<4B parameters) occasionally produce malformed structured output, mitigated by retry logic and chunk count calibration.
@@ -367,7 +365,7 @@ export GOOGLE_API_KEY=your_api_key_here
 
 ---
 
-## Future Work
+## 🔮 Future Work
 
 - [ ] **Cross-Encoder Reranking** — Two-stage retrieval with `BAAI/bge-reranker-v2-m3` for improved Context Precision
 - [ ] **Real-Time Streaming** — Server-Sent Events (SSE) for token-by-token response streaming in the Web UI
@@ -378,7 +376,7 @@ export GOOGLE_API_KEY=your_api_key_here
 
 ---
 
-## References
+## 📚 References
 
 - Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* NeurIPS 2020.
 - Es, S. et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation.* arXiv:2309.15217.
@@ -396,9 +394,9 @@ This project was developed as part of **Project I** at the university program. F
 
 <div align="center">
 
-**Built with love using Ollama, Qdrant, LangChain, and FastAPI**
+**Built with ❤️ using Ollama, Qdrant, LangChain, and FastAPI**
 
-*Running locally. No data leaves your machine.* 
+*Running locally. No data leaves your machine.* 🔒
 
 </div>
 ]]>

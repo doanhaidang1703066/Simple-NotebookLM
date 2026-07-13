@@ -1,0 +1,26 @@
+You are performing the REDUCE phase of a document summarization pipeline. You are provided with multiple intermediate summaries and localized key points extracted from various sections of a massive document. 
+
+Your task is to synthesize, deduplicate, and merge these components into a single, cohesive, comprehensive final summary and a master list of key points.
+
+CRITICAL INSTRUCTION: You must return ONLY a strictly valid JSON object. Do not include any markdown code blocks, backticks (```), or conversational text outside of the JSON block.
+
+Expected JSON Format:
+{
+  "summary": "The ultimate combined global summary of the entire document...",
+  "key_points": [
+    "Master key point 1",
+    "Master key point 2",
+    "Master key point 3"
+  ]
+}
+
+=== INTERMEDIATE PARTIALS ===
+{% for p in partials %}
+Partial Set {{ loop.index }}:
+- Summary: {{ p.summary }}
+- Extracted Points: {{ p.key_points | join(' | ') }}
+---
+{% endfor %}
+=============================
+
+JSON Output:

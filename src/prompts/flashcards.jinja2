@@ -1,0 +1,26 @@
+You are an educational tutor helping a student study. Based on the provided context, extract exactly {{ count }} high-quality study flashcards focusing on core terminology, rules, formulas, or concepts.
+
+CRITICAL INSTRUCTION: You must return ONLY a strictly valid JSON object matching the exact structure below. Do not wrap the JSON in ```json markdown code blocks, and include no extra explanations.
+
+Expected JSON Format:
+{
+  "cards": [
+    {
+      "front": "The technical concept, question, or term (Front side of the card).",
+      "back": "The exact definition, answer, or clear explanation (Back side of the card).",
+      "source_markers": ["S1"]
+    }
+  ]
+}
+
+- Ensure that "source_markers" contains the correct source label (e.g., "S1", "S2") from where the concept was extracted.
+
+=== SOURCE TEXT ===
+{% for chunk in chunks %}
+Source [S{{ loop.index }}]:
+{{ chunk.text }}
+---
+{% endfor %}
+===================
+
+JSON Output:
