@@ -1,4 +1,5 @@
-<![CDATA[<div align="center">
+```markdown
+<div align="center">
 
 # 📚 RAG-Based Intelligent Learning System
 
@@ -56,32 +57,33 @@ Interactive Single-Page Application (SPA) built with vanilla HTML5/CSS3/JavaScri
 
 The system operates in two primary phases:
 
-```
+```text
 ┌─────────────────────────── Phase 1: Knowledge Ingestion (Offline) ───────────────────────────┐
-│                                                                                               │
-│   📄 PDF Files ──▶ PyPDFLoader ──▶ Recursive/Semantic Splitter ──▶ Metadata Tagging           │
-│                                          │                                                    │
-│                                          ▼                                                    │
+│                                                                                              │
+│   📄 PDF Files ──▶ PyPDFLoader ──▶ Recursive/Semantic Splitter ──▶ Metadata Tagging          │
+│                                          │                                                   │
+│                                          ▼                                                   │
 │                    GreenNode Embedding Model ──▶ 🗄️ Qdrant Vector Database                    │
-│                                                                                               │
+│                                                                                              │
 └───────────────────────────────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────── Phase 2: Retrieval & Generation (Online) ─────────────────────────────┐
-│                                                                                               │
-│   👤 User Request ──▶ Filter Coercion ──▶ Query Embedding ──▶ Qdrant Top-k Search             │
-│                                                                      │                        │
-│                                                                      ▼                        │
-│                          Jinja2 Prompt Template ◀── Retrieved Chunks + Citations              │
-│                                   │                                                           │
-│                                   ▼                                                           │
+│                                                                                              │
+│   👤 User Request ──▶ Filter Coercion ──▶ Query Embedding ──▶ Qdrant Top-k Search            │
+│                                                                      │                       │
+│                                                                      ▼                       │
+│                          Jinja2 Prompt Template ◀── Retrieved Chunks + Citations             │
+│                                   │                                                          │
+│                                   ▼                                                          │
 │                       🤖 Ollama LLM (Qwen 2.5 3B) ──▶ Structured JSON Output                 │
-│                                                                                               │
+│                                                                                              │
 └───────────────────────────────────────────────────────────────────────────────────────────────┘
+
 ```
 
 ### Map-Reduce Summarization Architecture
 
-```
+```text
    MAP PHASE                                              REDUCE PHASE
 
  ┌──────────────┐
@@ -92,16 +94,17 @@ The system operates in two primary phases:
  │ Batch 2      │──┤     │(Map      │     ├─────────────┤  ├────▶│ Ollama   │────▶│ Final Executive │
  │(Chunks 11-20)│  │     │ Prompt)  │     │ Partial     │  │     │ LLM      │     │ Summary &       │
  └──────────────┘  │     └──────────┘     │ Summary 2   │  │     │(Reduce   │     │ Key Points      │
-       ⋮           │                      ├─────────────┤  │     │ Prompt)  │     └─────────────────┘
+        ⋮          │                      ├─────────────┤  │     │ Prompt)  │     └─────────────────┘
  ┌──────────────┐  │                      │ Partial     │──┘     └──────────┘
  │ Batch N      │──┘                      │ Summary N   │
  │ (Chunks ...) │                         └─────────────┘
  └──────────────┘
+
 ```
 
 ### Project Structure
 
-```
+```text
 notebook_lm/
 ├── data/                           # Input academic PDF repository
 ├── src/
@@ -134,6 +137,7 @@ notebook_lm/
 │       ├── run_chunking.py         # Automated benchmark execution script
 │       └── Data-Benchmark-Rag.csv  # 200-pair Q&A benchmark dataset
 └── storage/qdrant/                 # Local persistent Qdrant vector storage
+
 ```
 
 ---
@@ -143,7 +147,7 @@ notebook_lm/
 ### Prerequisites
 
 | Requirement | Version | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | Python | 3.10+ | Runtime environment |
 | [Ollama](https://ollama.com/) | Latest | Local LLM inference engine |
 | Git | Any | Clone repository |
@@ -151,8 +155,9 @@ notebook_lm/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/rag-learning-system.git
+git clone [https://github.com/YOUR_USERNAME/rag-learning-system.git](https://github.com/YOUR_USERNAME/rag-learning-system.git)
 cd rag-learning-system
+
 ```
 
 ### 2. Create Virtual Environment & Install Dependencies
@@ -161,17 +166,19 @@ cd rag-learning-system
 python3 -m venv .rag_env
 source .rag_env/bin/activate    # On macOS/Linux
 pip install -r requirements.txt
+
 ```
 
 ### 3. Install & Pull Ollama Models
 
 ```bash
 # Install Ollama (if not already installed)
-# Download from https://ollama.com/download
+# Download from [https://ollama.com/download](https://ollama.com/download)
 
 # Pull required models
 ollama pull qwen2.5:3b          # Primary answering model
 ollama pull phi3.5:3.8b         # Judge model for evaluation
+
 ```
 
 ### 4. Add PDF Documents
@@ -180,6 +187,7 @@ Place your academic PDF files into the `notebook_lm/data/` directory:
 
 ```bash
 cp /path/to/your/documents/*.pdf notebook_lm/data/
+
 ```
 
 ### 5. Launch the Application
@@ -187,12 +195,13 @@ cp /path/to/your/documents/*.pdf notebook_lm/data/
 ```bash
 cd notebook_lm/src
 uvicorn interfaces.api:app --host 0.0.0.0 --port 8000 --reload
+
 ```
 
 ### 6. Open in Browser
 
 | Interface | URL |
-|---|---|
+| --- | --- |
 | 🌐 **Web Application** | [http://localhost:8000/app](http://localhost:8000/app) |
 | 📖 **Swagger API Docs** | [http://localhost:8000/docs](http://localhost:8000/docs) |
 
@@ -202,6 +211,7 @@ On first launch, trigger document ingestion via the Web UI (upload button) or AP
 
 ```bash
 curl -X POST http://localhost:8000/ingest
+
 ```
 
 ---
@@ -239,6 +249,7 @@ curl -X POST http://localhost:8000/quiz \
 curl -X POST http://localhost:8000/flashcards \
   -H "Content-Type: application/json" \
   -d '{"document": "Reading-LLM-Alignment.pdf", "count": 10}'
+
 ```
 
 ---
@@ -246,7 +257,7 @@ curl -X POST http://localhost:8000/flashcards \
 ## 📡 API Reference
 
 | Method | Endpoint | Description | Request Body | Response |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | `GET` | `/health` | System health check | — | `{"status": "ok"}` |
 | `GET` | `/documents` | List all indexed PDFs | — | `list[DocumentInfo]` |
 | `POST` | `/upload` | Upload & index a new PDF | `MultipartFile` | `UploadResponse` |
@@ -267,7 +278,7 @@ curl -X POST http://localhost:8000/flashcards \
 The system includes a comprehensive automated evaluation suite using the **RAGAS** (Retrieval-Augmented Generation Assessment) framework, benchmarking across **4 core metrics**:
 
 | Metric | What It Measures |
-|---|---|
+| --- | --- |
 | **Faithfulness** | Factual consistency of answers against retrieved context (hallucination detection) |
 | **Answer Relevancy** | How directly the answer addresses the user's question |
 | **Context Precision** | Signal-to-noise ratio and ranking accuracy of retrieved chunks |
@@ -276,7 +287,7 @@ The system includes a comprehensive automated evaluation suite using the **RAGAS
 ### 7 Chunking Strategies Benchmarked
 
 | Strategy | Type | Parameters |
-|---|---|---|
+| --- | --- | --- |
 | `rc_500_50` | Recursive Character | `chunk_size=500`, `overlap=50` |
 | `rc_800_100` | Recursive Character | `chunk_size=800`, `overlap=100` |
 | `rc_1000_150` | Recursive Character | `chunk_size=1000`, `overlap=150` |
@@ -290,6 +301,7 @@ The system includes a comprehensive automated evaluation suite using the **RAGAS
 ```bash
 cd notebook_lm/src
 python -m evaluation.run_chunking
+
 ```
 
 > ⚠️ Evaluation runs ~8,400 LLM inference calls (200 test cases × 7 strategies × 6 metric calls). Recommended to run on GPU-equipped machines (e.g., Google Colab / Kaggle with NVIDIA T4).
@@ -299,7 +311,7 @@ python -m evaluation.run_chunking
 ## 🛠 Tech Stack
 
 | Layer | Technology | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | **Language** | Python 3.10+ | Core runtime |
 | **LLM Inference** | [Ollama](https://ollama.com/) + Qwen 2.5 3B | Local LLM with Apple Silicon Metal GPU acceleration |
 | **Vector Database** | [Qdrant](https://qdrant.tech/) (Local Mode) | Persistent vector storage with payload indexing |
@@ -319,7 +331,7 @@ python -m evaluation.run_chunking
 All settings are managed centrally via `src/config.py` using Pydantic Settings with environment variable overrides (prefix: `RAG_`):
 
 | Parameter | Default | Description |
-|---|---|---|
+| --- | --- | --- |
 | `chunk_size` | `1000` | Maximum characters per text chunk |
 | `chunk_overlap` | `150` | Overlapping characters between consecutive chunks |
 | `top_k` | `5` | Number of chunks retrieved per query |
@@ -334,10 +346,12 @@ All settings are managed centrally via `src/config.py` using Pydantic Settings w
 | `flashcards_default_count` | `15` | Default number of flashcards generated |
 
 Override any setting via environment variables:
+
 ```bash
 export RAG_CHUNK_SIZE=800
 export RAG_LLM_PROVIDER=gemini
 export GOOGLE_API_KEY=your_api_key_here
+
 ```
 
 ---
@@ -345,7 +359,7 @@ export GOOGLE_API_KEY=your_api_key_here
 ## 🔑 Key Design Decisions
 
 | Decision | Rationale |
-|---|---|
+| --- | --- |
 | **Local Ollama over Cloud APIs** | Privacy preservation, zero cost, no internet dependency, Apple Silicon GPU acceleration |
 | **Qdrant Local Mode over Docker** | Zero infrastructure overhead, single-process deployment, portable storage |
 | **Jinja2 over LangChain Prompts** | Support for loops, conditionals, strict undefined variables — essential for complex RAG prompt composition |
@@ -358,31 +372,31 @@ export GOOGLE_API_KEY=your_api_key_here
 
 ## 🚧 Known Limitations
 
-- **Single-Process Qdrant Lock:** In local file mode, only one process can access the database at a time. Don't run evaluation scripts while the web server is active.
-- **Small Model JSON Compliance:** Ultra-compact LLMs (<4B parameters) occasionally produce malformed structured output, mitigated by retry logic and chunk count calibration.
-- **PDF-Only Input:** Currently supports PDF documents only (no DOCX, Markdown, or web pages).
-- **No Passage Reranking:** Retrieval relies solely on bi-encoder cosine similarity without cross-encoder reranking.
+* **Single-Process Qdrant Lock:** In local file mode, only one process can access the database at a time. Don't run evaluation scripts while the web server is active.
+* **Small Model JSON Compliance:** Ultra-compact LLMs (<4B parameters) occasionally produce malformed structured output, mitigated by retry logic and chunk count calibration.
+* **PDF-Only Input:** Currently supports PDF documents only (no DOCX, Markdown, or web pages).
+* **No Passage Reranking:** Retrieval relies solely on bi-encoder cosine similarity without cross-encoder reranking.
 
 ---
 
 ## 🔮 Future Work
 
-- [ ] **Cross-Encoder Reranking** — Two-stage retrieval with `BAAI/bge-reranker-v2-m3` for improved Context Precision
-- [ ] **Real-Time Streaming** — Server-Sent Events (SSE) for token-by-token response streaming in the Web UI
-- [ ] **Multi-Format Ingestion** — Support for DOCX, PowerPoint, LaTeX, and web pages
-- [ ] **Hybrid Search** — Combining BM25 sparse retrieval with dense embeddings
-- [ ] **Docker Compose Deployment** — Containerized multi-service architecture (FastAPI + Qdrant Server + vLLM)
-- [ ] **Advanced RAG Paradigms** — Query rewriting, self-RAG, and agentic retrieval
+* [ ] **Cross-Encoder Reranking** — Two-stage retrieval with `BAAI/bge-reranker-v2-m3` for improved Context Precision
+* [ ] **Real-Time Streaming** — Server-Sent Events (SSE) for token-by-token response streaming in the Web UI
+* [ ] **Multi-Format Ingestion** — Support for DOCX, PowerPoint, LaTeX, and web pages
+* [ ] **Hybrid Search** — Combining BM25 sparse retrieval with dense embeddings
+* [ ] **Docker Compose Deployment** — Containerized multi-service architecture (FastAPI + Qdrant Server + vLLM)
+* [ ] **Advanced RAG Paradigms** — Query rewriting, self-RAG, and agentic retrieval
 
 ---
 
 ## 📚 References
 
-- Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* NeurIPS 2020.
-- Es, S. et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation.* arXiv:2309.15217.
-- Vaswani, A. et al. (2017). *Attention Is All You Need.* NeurIPS 2017.
-- Qwen Team (2024). *Qwen2.5 Technical Report.* arXiv:2412.15115.
-- Nogueira, R. & Cho, K. (2019). *Passage Re-ranking with BERT.* arXiv:1901.04085.
+* Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* NeurIPS 2020.
+* Es, S. et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation.* arXiv:2309.15217.
+* Vaswani, A. et al. (2017). *Attention Is All You Need.* NeurIPS 2017.
+* Qwen Team (2024). *Qwen2.5 Technical Report.* arXiv:2412.15115.
+* Nogueira, R. & Cho, K. (2019). *Passage Re-ranking with BERT.* arXiv:1901.04085.
 
 ---
 
@@ -392,11 +406,6 @@ This project was developed as part of **Project I** at the university program. F
 
 ---
 
-<div align="center">
-
 **Built with ❤️ using Ollama, Qdrant, LangChain, and FastAPI**
 
 *Running locally. No data leaves your machine.* 🔒
-
-</div>
-]]>
