@@ -60,12 +60,12 @@ The system operates in two primary phases:
 ```text
 ┌─────────────────────────── Phase 1: Knowledge Ingestion (Offline) ───────────────────────────┐
 │                                                                                              │
-│   📄 PDF Files ──▶ PyPDFLoader ──▶ Recursive/Semantic Splitter ──▶ Metadata Tagging          │
+│   📄 PDF Files ──▶ PyPDFLoader ──▶ Recursive/Semantic Splitter ──▶ Metadata Tagging          |
 │                                          │                                                   │
 │                                          ▼                                                   │
-│                    GreenNode Embedding Model ──▶ 🗄️ Qdrant Vector Database                    │
+│                    GreenNode Embedding Model ──▶ 🗄️ Qdrant Vector Database                   │
 │                                                                                              │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────── Phase 2: Retrieval & Generation (Online) ─────────────────────────────┐
 │                                                                                              │
@@ -77,7 +77,7 @@ The system operates in two primary phases:
 │                                   ▼                                                          │
 │                       🤖 Ollama LLM (Qwen 2.5 3B) ──▶ Structured JSON Output                 │
 │                                                                                              │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────────────────────────────────────┘
 
 ```
 
